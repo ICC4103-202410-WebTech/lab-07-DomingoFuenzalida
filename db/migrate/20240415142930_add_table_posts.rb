@@ -3,12 +3,12 @@ class AddTablePosts < ActiveRecord::Migration[7.1]
     create_table :posts do |t|
       t.string :title, null: false
       t.text :content, null: false
+      T.integer :user_id, null: false
       t.datetime :published_at, null: false
       t.integer :answers_count, null: false, default: 0
       t.integer :likes_count, null: false, default: 0
-
-      t.belongs_to :user
-      t.belongs_to :post
+      t.belongs_to :user, foreign_key: true
+      t.belongs_to :parent_post, foreign_key: { to_table: :posts }, null: true
       t.timestamps
     end
   end
